@@ -6,6 +6,7 @@ extends CharacterBody3D
 
 @export_subgroup("Weapons")
 @export var weapons: Array[Weapon] = []
+@export var crosshair:TextureRect
 
 var weapon: Weapon
 var weapon_index := 0
@@ -41,7 +42,6 @@ signal health_updated
 @onready var sound_footsteps = $SoundFootsteps
 @onready var blaster_cooldown = $Cooldown
 
-@export var crosshair:TextureRect
 
 # Functions
 
@@ -160,7 +160,9 @@ func handle_controls(_delta):
 		
 	# Weapon switching
 	
-	action_weapon_toggle()
+	#	Removing this for now since I think it might be a bit much to have 2 weapons
+	#	We can place it back if you have different thoughts about it
+	#action_weapon_toggle() 
 
 # Handle gravity
 

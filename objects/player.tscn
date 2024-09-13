@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dl2ed4gkybggf"]
+[gd_scene load_steps=15 format=3 uid="uid://dl2ed4gkybggf"]
 
 [ext_resource type="Script" path="res://objects/player.gd" id="1_ffboj"]
 [ext_resource type="Resource" uid="uid://cu2gtxlcmbb34" path="res://weapons/blaster-repeater.tres" id="2_6epbw"]
@@ -8,17 +8,15 @@
 [ext_resource type="SpriteFrames" uid="uid://dbv3sy5qjatnl" path="res://sprites/burst_animation.tres" id="4_m6ukc"]
 [ext_resource type="AudioStream" uid="uid://cydjn1ct3hps2" path="res://sounds/walking.ogg" id="5_ics1s"]
 [ext_resource type="Script" path="res://scripts/hud.gd" id="8_hl5qa"]
-[ext_resource type="FontFile" uid="uid://biqtga8moh7ah" path="res://fonts/lilita_one_regular.ttf" id="9_xxhar"]
+[ext_resource type="Texture2D" uid="uid://w6168uygx27a" path="res://2dAssets/health.png" id="9_5c00m"]
+[ext_resource type="Script" path="res://objects/playerCollision.gd" id="10_cnd3i"]
+[ext_resource type="LabelSettings" uid="uid://bksvjx6va2y8p" path="res://objects/UIFont.tres" id="10_vxydr"]
+[ext_resource type="Texture2D" uid="uid://by7ppiccqpwef" path="res://2dAssets/ammunition.png" id="11_e7lno"]
+[ext_resource type="Texture2D" uid="uid://m0qmdctq0ai2" path="res://2dAssets/Battery.png" id="12_5aq6c"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gdq8c"]
 radius = 0.3
 height = 1.0
-
-[sub_resource type="LabelSettings" id="LabelSettings_3fv65"]
-font = ExtResource("9_xxhar")
-font_size = 36
-outline_size = 12
-outline_color = Color(0, 0, 0, 0.470588)
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("crosshair")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -104,13 +102,55 @@ grow_vertical = 2
 scale = Vector2(0.35, 0.35)
 pivot_offset = Vector2(64, 64)
 
+[node name="HealthIcon" type="Sprite2D" parent="HUD"]
+position = Vector2(64, 56)
+texture = ExtResource("9_5c00m")
+
 [node name="Health" type="Label" parent="HUD"]
-offset_left = 48.0
-offset_top = 627.0
-offset_right = 138.0
-offset_bottom = 672.0
+offset_left = 122.0
+offset_top = 32.0
+offset_right = 212.0
+offset_bottom = 77.0
 size_flags_horizontal = 0
 size_flags_vertical = 8
 text = "100%"
-label_settings = SubResource("LabelSettings_3fv65")
+label_settings = ExtResource("10_vxydr")
 vertical_alignment = 2
+
+[node name="Ammunition2" type="Sprite2D" parent="HUD"]
+position = Vector2(46, 609)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("11_e7lno")
+
+[node name="Ammunition" type="Label" parent="HUD"]
+offset_left = 93.0
+offset_top = 584.0
+offset_right = 284.0
+offset_bottom = 626.0
+text = ": 0 / 10"
+label_settings = ExtResource("10_vxydr")
+
+[node name="Battery" type="Sprite2D" parent="HUD"]
+position = Vector2(55, 681)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("12_5aq6c")
+
+[node name="Batteries" type="Label" parent="HUD"]
+offset_left = 93.0
+offset_top = 659.0
+offset_right = 326.0
+offset_bottom = 701.0
+text = ": 0/  10
+"
+label_settings = ExtResource("10_vxydr")
+
+[node name="PlayerCollider" type="Area3D" parent="." node_paths=PackedStringArray("battery_ui") groups=["Player"]]
+script = ExtResource("10_cnd3i")
+batteries_held = 1
+battery_ui = NodePath("../HUD/Batteries")
+
+[node name="Collider" type="CollisionShape3D" parent="PlayerCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+shape = SubResource("CapsuleShape3D_gdq8c")
+
+[connection signal="area_entered" from="PlayerCollider" to="PlayerCollider" method="_on_area_entered"]
