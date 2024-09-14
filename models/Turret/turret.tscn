@@ -1,3 +1,11 @@
-[gd_scene format=3 uid="uid://d000logciq3up"]
+[gd_scene load_steps=3 format=3 uid="uid://d000logciq3up"]
+
+[ext_resource type="PackedScene" uid="uid://unlh1sldcgbg" path="res://models/Turret/Turret-Gun.glb" id="1_wsgs3"]
+[ext_resource type="PackedScene" uid="uid://cpwf74uroto30" path="res://models/Turret/Turret-Stem.glb" id="2_erptw"]
 
 [node name="Turret" type="Node3D"]
+
+[node name="Turret-Gun" parent="." instance=ExtResource("1_wsgs3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.239034, 0)
+
+[node name="Turret-Stem" parent="." instance=ExtResource("2_erptw")]
