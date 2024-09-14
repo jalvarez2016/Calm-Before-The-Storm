@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dl2ed4gkybggf"]
+[gd_scene load_steps=16 format=3 uid="uid://dl2ed4gkybggf"]
 
 [ext_resource type="Script" path="res://objects/player.gd" id="1_ffboj"]
 [ext_resource type="Resource" uid="uid://cu2gtxlcmbb34" path="res://weapons/blaster-repeater.tres" id="2_6epbw"]
@@ -13,16 +13,18 @@
 [ext_resource type="LabelSettings" uid="uid://bksvjx6va2y8p" path="res://objects/UIFont.tres" id="10_vxydr"]
 [ext_resource type="Texture2D" uid="uid://by7ppiccqpwef" path="res://2dAssets/ammunition.png" id="11_e7lno"]
 [ext_resource type="Texture2D" uid="uid://m0qmdctq0ai2" path="res://2dAssets/Battery.png" id="12_5aq6c"]
+[ext_resource type="Texture2D" uid="uid://bm58yg7atk7ya" path="res://2dAssets/House.png" id="13_rbil8"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gdq8c"]
 radius = 0.3
 height = 1.0
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("crosshair")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("crosshair", "ui_manager")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("1_ffboj")
 weapons = Array[ExtResource("2_k52la")]([ExtResource("3_kr4p8"), ExtResource("2_6epbw")])
 crosshair = NodePath("HUD/Crosshair")
+ui_manager = NodePath("PlayerCollider")
 
 [node name="Collider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
@@ -144,10 +146,24 @@ text = ": 0/  10
 "
 label_settings = ExtResource("10_vxydr")
 
-[node name="PlayerCollider" type="Area3D" parent="." node_paths=PackedStringArray("battery_ui", "ammunition_ui") groups=["Player"]]
+[node name="HouseIcon" type="Sprite2D" parent="HUD"]
+position = Vector2(72, 157)
+texture = ExtResource("13_rbil8")
+
+[node name="House" type="Label" parent="HUD"]
+offset_left = 125.0
+offset_top = 136.0
+offset_right = 358.0
+offset_bottom = 178.0
+text = "100%
+"
+label_settings = ExtResource("10_vxydr")
+
+[node name="PlayerCollider" type="Area3D" parent="." node_paths=PackedStringArray("battery_ui", "ammunition_ui", "house_ui") groups=["Player"]]
 script = ExtResource("10_cnd3i")
 battery_ui = NodePath("../HUD/Batteries")
 ammunition_ui = NodePath("../HUD/Ammunition")
+house_ui = NodePath("../HUD/House")
 
 [node name="Collider" type="CollisionShape3D" parent="PlayerCollider"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)

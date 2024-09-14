@@ -6,6 +6,8 @@ extends Area3D
 @export var ammunition_held : int = 0
 @export var ammunition_ui : Label
 
+@export var house_ui : Label
+
 func _on_area_entered(area: Area3D) -> void:
 	if area.is_in_group("Battery"):
 		batteries_held += 1
@@ -23,6 +25,10 @@ func update_batteries(amount: int) -> void :
 func update_ammunition(amount: int) -> void :
 	var new_ui_txt = ": {amount}/  10"
 	ammunition_ui.text = new_ui_txt.format({"amount": amount})
+
+func update_house_ui(amount: int) -> void:
+	var new_ui_txt = "{amount}%"
+	house_ui.text = new_ui_txt.format({"amount": amount})
 
 func _ready() -> void:
 	update_batteries(batteries_held)

@@ -11,7 +11,8 @@ func _on_timer_timeout() -> void:
 		battery -= loss_per_tick
 	elif battery -loss_per_tick < 0:
 		battery = 0
-		base.toggle_shield()
+		if base.isShieldOn:
+			base.toggle_shield()
 		return
 	
 	timer.start(2)

@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://decgyq1uaihvh" path="res://scenes/sample/environment.tscn" id="6_yk1f2"]
 [ext_resource type="PackedScene" uid="uid://bhcvd41xppjl5" path="res://models/Generator/generator.tscn" id="7_ccroy"]
 [ext_resource type="PackedScene" uid="uid://cnk7defgepko8" path="res://objects/battery.tscn" id="9_q43ii"]
-[ext_resource type="PackedScene" uid="uid://cs6mur1yx5gci" path="res://models/Collectable/Ammunition.glb" id="10_sqihy"]
+[ext_resource type="PackedScene" uid="uid://b3mt441gyv8uj" path="res://objects/ammunition.tscn" id="10_afseb"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e0g72"]
 resource_name = "Stone Wall"
@@ -328,13 +328,14 @@ collision_bounce = 0.01
 
 [node name="Node3D" type="Node3D"]
 
-[node name="HomeBase" type="Node3D" parent="." node_paths=PackedStringArray("shield", "shield_generator_particles", "shield_manager", "generator")]
+[node name="HomeBase" type="Node3D" parent="." node_paths=PackedStringArray("shield", "shield_generator_particles", "shield_manager", "generator", "player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0547438, 0)
 script = ExtResource("1_j1i5o")
 shield = NodePath("Base/Area3D")
 shield_generator_particles = NodePath("Base/GPUParticles3D")
 shield_manager = NodePath("Shield Manager")
 generator = NodePath("../Generator")
+player = NodePath("../Player")
 
 [node name="Base" type="Node3D" parent="HomeBase"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
@@ -392,7 +393,6 @@ wait_time = 2.0
 [node name="Shield Manager" type="Node3D" parent="HomeBase" node_paths=PackedStringArray("timer", "base")]
 script = ExtResource("2_cqj17")
 timer = NodePath("../Timer")
-battery = 100
 loss_per_tick = 1
 base = NodePath("..")
 
@@ -441,7 +441,8 @@ update_mode = 1
 [node name="Battery" parent="." instance=ExtResource("9_q43ii")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.8079, 0.497343, 11.8685)
 
-[node name="Ammunition" parent="." instance=ExtResource("10_sqihy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00464, 2.38419e-07, 19.8079)
+[node name="Ammunition" parent="." instance=ExtResource("10_afseb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.31741, 9.53674e-07, 16.261)
 
+[connection signal="area_entered" from="HomeBase/Base/Area3D" to="HomeBase" method="_on_area_3d_area_entered"]
 [connection signal="timeout" from="HomeBase/Timer" to="HomeBase/Shield Manager" method="_on_timer_timeout"]

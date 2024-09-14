@@ -8,6 +8,9 @@ extends CharacterBody3D
 @export var weapons: Array[Weapon] = []
 @export var crosshair:TextureRect
 
+@export_subgroup("Other")
+@export var ui_manager : Area3D
+
 var weapon: Weapon
 var weapon_index := 0
 
