@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3mt441gyv8uj"]
+
+[ext_resource type="PackedScene" uid="uid://cs6mur1yx5gci" path="res://models/Collectable/Ammunition.glb" id="1_ft0om"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_omvmj"]
+data = PackedVector3Array(1.3585, 0.4257, -1, -1.3585, 0.4257, 1, -1.3585, 0.4257, -1, 1.3585, 0.4257, -1, 1.3585, 0.4257, 1, -1.3585, 0.4257, 1, 1.3585, -0.4257, 1, -1.3585, 0.4257, 1, 1.3585, 0.4257, 1, 1.3585, -0.4257, 1, -1.3585, -0.4257, 1, -1.3585, 0.4257, 1, -1.3585, -0.4257, 1, -1.3585, 0.4257, -1, -1.3585, 0.4257, 1, -1.3585, -0.4257, 1, -1.3585, -0.4257, -1, -1.3585, 0.4257, -1, -1.3585, -0.4257, -1, 1.3585, -0.4257, 1, 1.3585, -0.4257, -1, -1.3585, -0.4257, -1, -1.3585, -0.4257, 1, 1.3585, -0.4257, 1, 1.3585, -0.4257, -1, 1.3585, 0.4257, 1, 1.3585, 0.4257, -1, 1.3585, -0.4257, -1, 1.3585, -0.4257, 1, 1.3585, 0.4257, 1, -1.3585, -0.4257, -1, 1.3585, 0.4257, -1, -1.3585, 0.4257, -1, -1.3585, -0.4257, -1, 1.3585, -0.4257, -1, 1.3585, 0.4257, -1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7ic02"]
+radius = 3.15128
+
+[node name="Ammunition" instance=ExtResource("1_ft0om")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cube" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube/StaticBody3D" index="0"]
+shape = SubResource("ConcavePolygonShape3D_omvmj")
+
+[node name="Area3D" type="Area3D" parent="." index="1" groups=["ammunition"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0"]
+shape = SubResource("SphereShape3D_7ic02")
