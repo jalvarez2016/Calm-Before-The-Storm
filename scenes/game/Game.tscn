@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://ubd1pkp0d6xu"]
+[gd_scene load_steps=38 format=4 uid="uid://ubd1pkp0d6xu"]
 
 [ext_resource type="Script" path="res://models/House/base.gd" id="1_j1i5o"]
 [ext_resource type="Script" path="res://models/House/shield_manager.gd" id="2_cqj17"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://decgyq1uaihvh" path="res://scenes/sample/environment.tscn" id="6_yk1f2"]
 [ext_resource type="PackedScene" uid="uid://bhcvd41xppjl5" path="res://models/Generator/generator.tscn" id="7_ccroy"]
 [ext_resource type="PackedScene" uid="uid://cnk7defgepko8" path="res://objects/battery.tscn" id="9_q43ii"]
+[ext_resource type="PackedScene" uid="uid://cs6mur1yx5gci" path="res://models/Collectable/Ammunition.glb" id="10_sqihy"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e0g72"]
 resource_name = "Stone Wall"
@@ -439,5 +440,8 @@ update_mode = 1
 
 [node name="Battery" parent="." instance=ExtResource("9_q43ii")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.8079, 0.497343, 11.8685)
+
+[node name="Ammunition" parent="." instance=ExtResource("10_sqihy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00464, 2.38419e-07, 19.8079)
 
 [connection signal="timeout" from="HomeBase/Timer" to="HomeBase/Shield Manager" method="_on_timer_timeout"]
